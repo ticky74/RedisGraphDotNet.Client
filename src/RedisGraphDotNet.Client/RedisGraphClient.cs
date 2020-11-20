@@ -18,17 +18,17 @@ namespace RedisGraphDotNet.Client
             this.multiplexer = multiplexer;
         }
 
-        public Task<ResultSet> Query(string graphName, string query)
+        public Task<ResultSet> QueryAsync(string graphName, string query)
         {
             return Task.FromResult(ExecuteQuery(RedisGraphQueryCommand, graphName, query).AsResultSet());
         }
 
-        public Task<string> Explain(string graphName, string query)
+        public Task<string> ExplainAsync(string graphName, string query)
         {
             return Task.FromResult((string) ExecuteQuery(RedisGraphExplainCommand, graphName, query));
         }
 
-        public Task<bool> DeleteGraph(string graphName) {
+        public Task<bool> DeleteGraphAsync(string graphName) {
             var db = multiplexer.GetDatabase();
             db.Execute(RedisGraphDeleteCommand, graphName);
             return Task.FromResult(true);
